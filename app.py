@@ -69,6 +69,11 @@ PHASE_LABELS = {
     "Mullite": "莫来石",
     "Tridymite": "鳞石英",
 }
+PHASE_COLUMN_ALIASES = {
+    "β?quartz s.s": "β-quartz s.s.",
+    "β-quartz s.s": "β-quartz s.s.",
+    "β?spodumene": "β-spodumene",
+}
 MODEL_VERSION = "phase-v1.0"
 
 
@@ -162,9 +167,15 @@ def read_table(query: str, params: tuple = ()) -> pd.DataFrame:
 @st.cache_data
 def load_real_data() -> pd.DataFrame:
     try:
-        return pd.read_csv(REAL_DATA_PATH, encoding="utf-8-sig")
+        data = pd.read_csv(REAL_DATA_PATH, encoding="utf-8-sig")
     except UnicodeDecodeError:
-        return pd.read_csv(REAL_DATA_PATH, encoding="gb18030")
+        data = pd.read_csv(REAL_DATA_PATH, encoding="gb18030")
+    rename_map = {
+        alias: canonical
+        for alias, canonical in PHASE_COLUMN_ALIASES.items()
+        if alias in data.columns and canonical not in data.columns
+    }
+    return data.rename(columns=rename_map)
 
 
 def is_phase_dataset(data: pd.DataFrame) -> bool:
@@ -328,7 +339,8 @@ def default_input_row(data: pd.DataFrame) -> pd.Series:
     valid_order = valid[(valid["T_nucleation"] > 0) & (valid["T_crystal"] > 0) & (valid["T_nucleation"] < valid["T_crystal"])]
     if not valid_order.empty:
         valid = valid_order
-    return valid.loc[valid[PHASE_COLUMNS].sum(axis=1).idxmax()]
+    targets = phase_target_columns(data)
+    return valid.loc[valid[targets].sum(axis=1).idxmax()]
 
 
 def render_input_fields(data: pd.DataFrame, key_prefix: str) -> dict[str, float]:
@@ -464,6 +476,7 @@ def phase_candidate_table(
     rng = np.random.default_rng(42)
     rows: list[dict] = []
     model = artifact["model"]
+    targets = phase_target_columns(data)
     medians = data[COMPOSITION_COLUMNS + PROCESS_COLUMNS].median(numeric_only=True)
     scales = data[COMPOSITION_COLUMNS + PROCESS_COLUMNS].std(numeric_only=True).replace(0, 1).fillna(1)
     composition_matrix = data[COMPOSITION_COLUMNS].to_numpy(dtype=float)
@@ -485,8 +498,8 @@ def phase_candidate_table(
             continue
         features = phase_feature_frame(pd.DataFrame([candidate]), include_process=True)
         predicted = model.predict(features)[0]
-        probabilities = predict_probability_matrix(model, features, len(PHASE_COLUMNS))[0]
-        probability_by_phase = dict(zip(PHASE_COLUMNS, probabilities))
+        probabilities = predict_probability_matrix(model, features, len(targets))[0]
+        probability_by_phase = dict(zip(targets, probabilities))
         target_probability = float(np.mean([probability_by_phase[phase] for phase in target_phases]))
         excluded_probability = float(np.mean([probability_by_phase[phase] for phase in excluded_phases])) if excluded_phases else 0.0
         distance_values = []
