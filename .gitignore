@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.streamlit/secrets.toml
+
+# Local experiment records and uploaded images are not part of the public demo.
+data/las_lab.db
+data/uploads/
+
+# Local logs and editor files.
+*.log
+.vscode/
+.idea/
