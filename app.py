@@ -69,11 +69,6 @@ PHASE_LABELS = {
     "Mullite": "莫来石",
     "Tridymite": "鳞石英",
 }
-PHASE_COLUMN_ALIASES = {
-    "β?quartz s.s": "β-quartz s.s.",
-    "β-quartz s.s": "β-quartz s.s.",
-    "β?spodumene": "β-spodumene",
-}
 MODEL_VERSION = "phase-v1.0"
 
 
@@ -88,12 +83,12 @@ def inject_styles() -> None:
         [data-testid="stSidebar"] [data-testid="stAlert"]{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
         h1{font-size:clamp(1.85rem,3vw,2.7rem);line-height:1.08;letter-spacing:0;overflow-wrap:anywhere;color:var(--ink)}h2{line-height:1.16;overflow-wrap:anywhere;color:var(--ink)}h3{color:#39545a;line-height:1.25}p,label,[data-testid="stMarkdownContainer"]{color:var(--muted)}
         [data-testid="stMetric"]{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;box-shadow:var(--shadow);min-height:106px}[data-testid="stMetricLabel"]{color:var(--muted);font-size:.78rem}[data-testid="stMetricValue"]{color:var(--ink);font-size:1.72rem;font-variant-numeric:tabular-nums}
-        [data-testid="stTabs"] [role="tablist"]{gap:.7rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem;overflow-x:auto}[data-testid="stTabs"] button[role="tab"]{min-height:44px;padding:.55rem 1rem;border-radius:10px 10px 0 0;color:var(--muted);white-space:nowrap}[data-testid="stTabs"] button[aria-selected="true"]{color:var(--accent);background:rgba(15,145,139,.11);font-weight:700}
+        [data-testid="stTabs"] [role="tablist"]{gap:.3rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem;overflow-x:auto}[data-testid="stTabs"] button[role="tab"]{min-height:44px;padding:.55rem .85rem;border-radius:10px 10px 0 0;color:var(--muted);white-space:nowrap}[data-testid="stTabs"] button[aria-selected="true"]{color:var(--accent);background:rgba(15,145,139,.11);font-weight:700}
         .stButton>button,.stDownloadButton>button{min-height:44px;border-radius:10px;border:1px solid rgba(15,145,139,.32);background:var(--accent);color:#f4fffd!important;font-weight:700;box-shadow:0 8px 18px rgba(15,145,139,.18);white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease}.stButton>button *, .stDownloadButton>button *{color:#f4fffd!important}.stButton>button:hover,.stDownloadButton>button:hover{background:#087b77;box-shadow:0 10px 22px rgba(15,145,139,.26);transform:translateY(-1px)}
         .stButton>button:focus-visible,.stDownloadButton>button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(216,148,62,.55);outline-offset:2px}[data-testid="stDataFrame"]{border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--surface)}[data-testid="stAlert"]{border-radius:11px;border-width:1px}[data-testid="stFileUploader"]{background:var(--surface2);border:1px dashed rgba(15,145,139,.42);border-radius:12px;padding:.35rem}
-        .lab-hero{background:var(--dark);border-radius:16px;padding:1.55rem 1.7rem;color:#effbf8;box-shadow:0 18px 36px rgba(23,52,58,.18);margin:.5rem 0 1.4rem}.lab-hero h2,.lab-hero p{color:#effbf8;margin:.1rem 0}.lab-hero p{opacity:.78}.eyebrow{color:#f1bc6c!important;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.step-card{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:1rem 1.1rem;height:176px;min-height:176px;box-sizing:border-box;display:flex;flex-direction:column;box-shadow:var(--shadow)}.step-card strong{color:var(--accent);font-size:.78rem}.step-card h4{margin:.35rem 0;color:var(--ink)}.step-card p{font-size:.84rem;line-height:1.45;margin:0;min-height:2.9em}
+        .lab-hero{background:var(--dark);border-radius:16px;padding:1.55rem 1.7rem;color:#effbf8;box-shadow:0 18px 36px rgba(23,52,58,.18);margin:.5rem 0 1.4rem}.lab-hero h2,.lab-hero p{color:#effbf8;margin:.1rem 0}.lab-hero p{opacity:.78}.eyebrow{color:#f1bc6c!important;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.step-card{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:1rem 1.1rem;min-height:122px;box-shadow:var(--shadow)}.step-card strong{color:var(--accent);font-size:.78rem}.step-card h4{margin:.35rem 0;color:var(--ink)}.step-card p{font-size:.84rem;margin:0}
         .notice-strip{background:var(--surface2);border-left:4px solid var(--accent);padding:.8rem 1rem;border-radius:8px;margin:.8rem 0 1.1rem}.notice-strip strong{color:var(--ink)}
-        @media(max-width:768px){.block-container{padding:1rem .8rem 3rem}h1{font-size:1.75rem}[data-testid="stTabs"] button[role="tab"]{min-width:98px}[data-testid="stMetric"]{min-height:92px}.lab-hero{padding:1.2rem;border-radius:13px}.step-card{height:auto;min-height:150px}}
+        @media(max-width:768px){.block-container{padding:1rem .8rem 3rem}h1{font-size:1.75rem}[data-testid="stTabs"] button[role="tab"]{min-width:98px}[data-testid="stMetric"]{min-height:92px}.lab-hero{padding:1.2rem;border-radius:13px}}
         @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
         </style>
         """,
@@ -167,15 +162,9 @@ def read_table(query: str, params: tuple = ()) -> pd.DataFrame:
 @st.cache_data
 def load_real_data() -> pd.DataFrame:
     try:
-        data = pd.read_csv(REAL_DATA_PATH, encoding="utf-8-sig")
+        return pd.read_csv(REAL_DATA_PATH, encoding="utf-8-sig")
     except UnicodeDecodeError:
-        data = pd.read_csv(REAL_DATA_PATH, encoding="gb18030")
-    rename_map = {
-        alias: canonical
-        for alias, canonical in PHASE_COLUMN_ALIASES.items()
-        if alias in data.columns and canonical not in data.columns
-    }
-    return data.rename(columns=rename_map)
+        return pd.read_csv(REAL_DATA_PATH, encoding="gb18030")
 
 
 def is_phase_dataset(data: pd.DataFrame) -> bool:
@@ -339,8 +328,7 @@ def default_input_row(data: pd.DataFrame) -> pd.Series:
     valid_order = valid[(valid["T_nucleation"] > 0) & (valid["T_crystal"] > 0) & (valid["T_nucleation"] < valid["T_crystal"])]
     if not valid_order.empty:
         valid = valid_order
-    targets = phase_target_columns(data)
-    return valid.loc[valid[targets].sum(axis=1).idxmax()]
+    return valid.loc[valid[PHASE_COLUMNS].sum(axis=1).idxmax()]
 
 
 def render_input_fields(data: pd.DataFrame, key_prefix: str) -> dict[str, float]:
@@ -476,7 +464,6 @@ def phase_candidate_table(
     rng = np.random.default_rng(42)
     rows: list[dict] = []
     model = artifact["model"]
-    targets = phase_target_columns(data)
     medians = data[COMPOSITION_COLUMNS + PROCESS_COLUMNS].median(numeric_only=True)
     scales = data[COMPOSITION_COLUMNS + PROCESS_COLUMNS].std(numeric_only=True).replace(0, 1).fillna(1)
     composition_matrix = data[COMPOSITION_COLUMNS].to_numpy(dtype=float)
@@ -498,8 +485,8 @@ def phase_candidate_table(
             continue
         features = phase_feature_frame(pd.DataFrame([candidate]), include_process=True)
         predicted = model.predict(features)[0]
-        probabilities = predict_probability_matrix(model, features, len(targets))[0]
-        probability_by_phase = dict(zip(targets, probabilities))
+        probabilities = predict_probability_matrix(model, features, len(PHASE_COLUMNS))[0]
+        probability_by_phase = dict(zip(PHASE_COLUMNS, probabilities))
         target_probability = float(np.mean([probability_by_phase[phase] for phase in target_phases]))
         excluded_probability = float(np.mean([probability_by_phase[phase] for phase in excluded_phases])) if excluded_phases else 0.0
         distance_values = []
@@ -855,6 +842,32 @@ def page_model_eval(data: pd.DataFrame, artifacts: dict) -> None:
     st.markdown("当前模型用于展示真实数据上的建模流程和候选筛选能力。它不代表所有 LAS 微晶玻璃配方的通用规律，也不能替代 XRD 鉴定和热处理实验。")
 
 
+def page_docs() -> None:
+    st.header("项目资料")
+    st.markdown("#### 项目名称")
+    st.info("基于真实数据驱动的 LAS 微晶玻璃晶相智能预测与目标晶相设计系统")
+    st.markdown("#### 系统功能")
+    st.markdown(
+        "1. 读取并审计真实 LAS 成分、热处理和晶相数据。\n"
+        "2. 使用成分和热处理工艺预测多个晶相标签。\n"
+        "3. 以目标晶相和工艺约束筛选模型推荐候选方案。\n"
+        "4. 展示模型指标、分晶相 F1 和整体特征重要性。\n"
+        "5. 保存样品编号、输入条件和预测结果，形成后续实验记录入口。"
+    )
+    st.markdown("#### 当前数据边界")
+    st.warning("当前数据没有透光率、强度、热膨胀系数、晶粒尺寸和显微组织图片。因此本系统暂不宣称性能预测或图像多模态预测。")
+    st.markdown("#### 三分钟演示顺序")
+    st.markdown(
+        "1. 总览页展示 751 条真实记录、550 种独立成分和晶相分布。\n"
+        "2. 在晶相预测页输入配方和热处理工艺，运行模型并保存结果。\n"
+        "3. 在目标晶相设计页选择目标晶相，生成候选方案并查看评分。\n"
+        "4. 在模型评估页展示成分基线与成分+工艺模型对比。\n"
+        "5. 说明预测结果需要通过 XRD、制样和热处理实验验证。"
+    )
+    st.markdown("#### 建议继续补充的数据")
+    st.markdown("样品编号、工艺字段中 0 值的含义、XRD 原始数据或晶相含量、测试方法、数据来源，以及后续真实实验回填结果。")
+
+
 def main() -> None:
     inject_styles()
     init_db()
@@ -872,7 +885,7 @@ def main() -> None:
         st.stop()
     st.title("基于真实数据驱动的 LAS 微晶玻璃晶相智能预测与目标晶相设计系统")
     st.caption("基于真实成分、热处理工艺和晶相数据 | 预测结果用于科研筛选与实验设计")
-    tabs = st.tabs(["总览", "晶相预测", "目标晶相设计", "数据中心", "样品记录", "模型评估"])
+    tabs = st.tabs(["总览", "晶相预测", "目标晶相设计", "数据中心", "样品记录", "模型评估", "项目资料"])
     with tabs[0]:
         page_overview(data, artifacts)
     with tabs[1]:
@@ -885,6 +898,8 @@ def main() -> None:
         page_records()
     with tabs[5]:
         page_model_eval(data, artifacts)
+    with tabs[6]:
+        page_docs()
 
 
 if __name__ == "__main__":
