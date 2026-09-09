@@ -855,32 +855,6 @@ def page_model_eval(data: pd.DataFrame, artifacts: dict) -> None:
     st.markdown("当前模型用于展示真实数据上的建模流程和候选筛选能力。它不代表所有 LAS 微晶玻璃配方的通用规律，也不能替代 XRD 鉴定和热处理实验。")
 
 
-def page_docs() -> None:
-    st.header("项目资料")
-    st.markdown("#### 项目名称")
-    st.info("基于真实数据驱动的 LAS 微晶玻璃晶相智能预测与目标晶相设计系统")
-    st.markdown("#### 系统功能")
-    st.markdown(
-        "1. 读取并审计真实 LAS 成分、热处理和晶相数据。\n"
-        "2. 使用成分和热处理工艺预测多个晶相标签。\n"
-        "3. 以目标晶相和工艺约束筛选模型推荐候选方案。\n"
-        "4. 展示模型指标、分晶相 F1 和整体特征重要性。\n"
-        "5. 保存样品编号、输入条件和预测结果，形成后续实验记录入口。"
-    )
-    st.markdown("#### 当前数据边界")
-    st.warning("当前数据没有透光率、强度、热膨胀系数、晶粒尺寸和显微组织图片。因此本系统暂不宣称性能预测或图像多模态预测。")
-    st.markdown("#### 三分钟演示顺序")
-    st.markdown(
-        "1. 总览页展示 751 条真实记录、550 种独立成分和晶相分布。\n"
-        "2. 在晶相预测页输入配方和热处理工艺，运行模型并保存结果。\n"
-        "3. 在目标晶相设计页选择目标晶相，生成候选方案并查看评分。\n"
-        "4. 在模型评估页展示成分基线与成分+工艺模型对比。\n"
-        "5. 说明预测结果需要通过 XRD、制样和热处理实验验证。"
-    )
-    st.markdown("#### 建议继续补充的数据")
-    st.markdown("样品编号、工艺字段中 0 值的含义、XRD 原始数据或晶相含量、测试方法、数据来源，以及后续真实实验回填结果。")
-
-
 def main() -> None:
     inject_styles()
     init_db()
@@ -898,7 +872,7 @@ def main() -> None:
         st.stop()
     st.title("基于真实数据驱动的 LAS 微晶玻璃晶相智能预测与目标晶相设计系统")
     st.caption("基于真实成分、热处理工艺和晶相数据 | 预测结果用于科研筛选与实验设计")
-    tabs = st.tabs(["总览", "晶相预测", "目标晶相设计", "数据中心", "样品记录", "模型评估", "项目资料"])
+    tabs = st.tabs(["总览", "晶相预测", "目标晶相设计", "数据中心", "样品记录", "模型评估"])
     with tabs[0]:
         page_overview(data, artifacts)
     with tabs[1]:
@@ -911,8 +885,6 @@ def main() -> None:
         page_records()
     with tabs[5]:
         page_model_eval(data, artifacts)
-    with tabs[6]:
-        page_docs()
 
 
 if __name__ == "__main__":
