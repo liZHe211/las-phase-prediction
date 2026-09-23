@@ -2,6 +2,8 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.vendor/
+.vendor_nsga/
 .env
 .streamlit/secrets.toml
 
